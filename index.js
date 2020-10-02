@@ -1,3 +1,31 @@
+
+//A class to create the scenes.
+class sceneBuilder {
+    constructor(title, description, options) {
+        this.title = title;
+        this.description = description;
+        this.options = options;
+    }
+}
+
+//Selection of common html elements
+const sceneTitle = document.querySelector("#scene-title");
+const sceneDesc = document.querySelector("#scene-description");
+const sceneOpt = document.querySelectorAll(".option")
+
+
+//Creation of each scene, follow the format "new sceneBuilder("Title of scene", "Description of the scene", ["Button 1", "Button2", "Button 3", "Button 4"]).
+//If a scene should only have ex. 2 options: fill in the first two and set empty strings for the others like this ["Button 1", "Button 2", "", ""].
+//All scenes are put in an array which is selectet in the actions() function below to choose scene by calling the changeScene() function.
+const scenes = 
+[new sceneBuilder("kenny", "fight kenny", ["kill", "5", "7", ""]),
+ new sceneBuilder("bob", "bargain with bob", ["a", "b", "", ""]),
+ new sceneBuilder("homework", "bargain with bob", ["a", "b", "", ""]),
+ new sceneBuilder("toilet", "bargain with bob", ["a", "b", "", ""]),
+ new sceneBuilder("KENNY IS DEAD", "You need to answer for your actions", ["Run", "Hide the body", "Kill self", ""]),]
+
+
+//Stats that should be shown on screen
 let stats = {
     money: 10,
     intelligence: 10,
@@ -5,51 +33,98 @@ let stats = {
     charm: 10
 }
 
-function backgroundSelect(stat) {
-    switch (stat) {
-        case "money":
-            stats.money = stats.money + 10
+
+//All the choices, what they do and which scene they lead to.
+function actions(choice) {
+    //Switch statement that checks which choice was made
+    switch (choice) {
+        case "get money":
+            //When the "money" choice is made the following is run
+            stats.money += 10
             console.log(`You now have ${stats.money} monies!`);
+            //The argument selects which scene to continue to. Ex. changeScene(0) selects the first scene in the "scenes" array.
+            changeScene(0)
             break
 
         case "intelligence":
-            stats.intelligence = stats.intelligence + 10
+            stats.intelligence += 10
             console.log(`You are now ${stats.intelligence} smort!`);
+
+            changeScene(1)
             break
 
         case "strength":
-            stats.strength = stats.strength + 10
+            stats.strength += 10
             console.log(`You are now ${stats.strength} stronk!`);
+
+            changeScene(2)
             break
 
         case "charm":
-            stats.charm = stats.charm + 10
+            stats.charm += 10
             console.log(`You are now ${stats.charm} charming!`);
-            break
 
+            changeScene(3)
+            break
+        
+        case "kill":
+
+            changeScene(4)
+            break
         default:
-            console.log(`${stat} is not a stat!`);
+            console.log(`${choice} is not an action!`);
     }
 
 }
 
+//Targets the button with the id="button1" and gives it an event listener
+button1 = document.getElementById("button1")
+button1.addEventListener("click", () => {
+    //Checks the value of button with the id="button1" 
+    switch (sceneOpt[0].value) {
+        //Each case represents the value of the button and calls actions() above with the corresponding argument 
+        case "Rich boi": 
+        actions("get money")
+        break
 
-richButton = document.getElementById("rich")
-richButton.addEventListener("click", () => {
-    backgroundSelect("money")
+        case "kill":
+        actions("kill")
+    }
 })
 
-smartButton = document.getElementById("smart")
-smartButton.addEventListener("click", () => {
-    backgroundSelect("intelligence")
+button2 = document.getElementById("button2")
+button2.addEventListener("click", () => {
+    actions("intelligence")
 })
 
-strongButton = document.getElementById("strong")
-strongButton.addEventListener("click", () => {
-    backgroundSelect("strength")
+button3 = document.getElementById("button3")
+button3.addEventListener("click", () => {
+    actions("strength")
 })
 
-charmingButton = document.getElementById("charming")
-charmingButton.addEventListener("click", () => {
-    backgroundSelect("charm")
+button4 = document.getElementById("button4")
+button4.addEventListener("click", () => {
+    actions("charm")
 })
+
+
+//Function for changing to new scene.
+const changeScene = (sceneName) => {
+    //Checks which scene array is chosen.
+    const scene = scenes[sceneName];
+    //Selects which title and description should be displayed.
+    sceneTitle.innerText = scene.title
+    sceneDesc.innerText = scene.description
+    //Loops through the button arrays and passes the strings of the corresponding scene as the innerText to each button.
+    for(let i = 0 ; i < sceneOpt.length ; i++) {
+        sceneOpt[i].innerText = scene.options[i];
+    }
+    //Gives every button the same value as its innerText.
+    sceneOpt.forEach( (button) => {
+        button.value = button.innerText;
+        //Every button that does not have an innerText is hidden.
+        if(button.innerText == "") {
+            button.style.display = "none";
+        }
+    })
+}
