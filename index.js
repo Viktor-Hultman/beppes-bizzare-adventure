@@ -111,6 +111,7 @@ function actions(choice) {
             } else {
                 changeScene(4)
             }
+            break
 
         case "newFriendJesper":
             if(stats.strength >= 20) {
@@ -119,6 +120,7 @@ function actions(choice) {
             } else {
                 changeScene(6)
             }
+            break
 
         case "newFriendViktor":
             if(stats.charm >= 20) {
@@ -127,6 +129,7 @@ function actions(choice) {
             } else {
                 changeScene(8)
             }
+            break
 
         case "newFriendKevin":
             if(stats.money >= 20) {
@@ -135,6 +138,7 @@ function actions(choice) {
             } else {
                 changeScene(10)
             }
+            break
 
         default:
             console.log(`${choice} is not an action!`);
@@ -242,7 +246,6 @@ const changeScene = (sceneName) => {
     sceneOpt.forEach((button) => {
         button.style.display = "initial";
         button.value = button.innerText;
-        console.log(button)
         //Every button that does not have an innerText is hidden.
         if (button.innerText == "") {
             button.style.display = "none";
