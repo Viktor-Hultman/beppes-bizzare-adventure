@@ -25,7 +25,7 @@ const scenes =
         new sceneBuilder("Filip accepts you", "Filip has deemed that you're smart enough to be his friend.", ["Continue", "", "", ""]),
         new sceneBuilder("Filip does not accept you.", "You are not smart enough for Filip. He leaves.", ["Continue", "", "", ""]),
         
-        new sceneBuilder("Jesper accepts you", "Jesper has deemed that you're smart enough to be his friend.", ["Continue", "", "", ""]),
+        new sceneBuilder("Jesper accepts you", "Jesper has deemed that you're strong enough to be his friend.", ["Continue", "", "", ""]),
         new sceneBuilder("Jesper does not accept you.", "You are not buff enough for Jesper. He leaves.", ["Continue", "", "", ""]),
 
         new sceneBuilder("Viktor accepts you", "Viktor has deemed that you're charismatic enough to be his friend.", ["Continue", "", "", ""]),
