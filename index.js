@@ -171,11 +171,7 @@ button2.addEventListener("click", () => {
 
         case "Smart boi":
             actions("intelligenceBackground")
-<<<<<<< HEAD
             break
-=======
-            break;
->>>>>>> 6560255a90682faacd5fede9bcd3d2e818ef17cf
 
         case "Try to make some friends":
             actions("makeFriends")
