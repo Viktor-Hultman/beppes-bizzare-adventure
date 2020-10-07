@@ -21,8 +21,18 @@ const scenes =
     [   new sceneBuilder("Start of the school year", "You are seated in your new classroom for the first time with your new classmates, the teacher is going through some important information about your education. What do you do?", ["Listen to the information", "Try to make some friends", "Play with your cellphone", ""]),
         new sceneBuilder("play with your cellphone", "You pick up your cellphone and start playing angry birds", ["you turn off the volume", "you put the volume to the max", "you start texting your girlfriend", "browsing reddit"]),
         new sceneBuilder("Making Friends","You decide to make some friends. Which one do you want do be friend? Filip seems to be very smart. Jesper seems to be very strong. Viktor seems charismatic. Kevin probably has a rich dad.", ["Filip", "Jesper", "Viktor", "Kevin"]),
+        
+        new sceneBuilder("Filip accepts you", "Filip has deemed that you're smart enough to be his friend.", ["Continue", "", "", ""]),
+        new sceneBuilder("Filip does not accept you.", "You are not smart enough for Filip. He leaves.", ["Continue", "", "", ""]),
+        
+        new sceneBuilder("Jesper accepts you", "Jesper has deemed that you're smart enough to be his friend.", ["Continue", "", "", ""]),
+        new sceneBuilder("Jesper does not accept you.", "You are not buff enough for Jesper. He leaves.", ["Continue", "", "", ""]),
+
         new sceneBuilder("Viktor accepts you", "Viktor has deemed that you're charismatic enough to be his friend.", ["Continue", "", "", ""]),
-        new sceneBuilder("Viktor does not accept you.", "You are not charismatic enough for Viktor. He leaves.", ["Continue", "", "", ""])
+        new sceneBuilder("Viktor does not accept you.", "You are not charismatic enough for Viktor. He leaves.", ["Continue", "", "", ""]),
+
+        new sceneBuilder("Kevin accepts you", "Kevin has deemed that you're loaded enough to be his friend.", ["Continue", "", "", ""]),
+        new sceneBuilder("Kevin does not accept you.", "You are not rich enough for Kevin. He leaves.", ["Continue", "", "", ""]),
     ];
 
 
@@ -78,11 +88,36 @@ function actions(choice) {
             changeScene(2)
             break
 
-        case "newFriendViktor":
-            if(stats.charm > 20) {
+        case "newFriendFilip":
+            if(stats.intelligence >= 20) {
+                stats.intelligence += 5
                 changeScene(3)
             } else {
                 changeScene(4)
+            }
+
+        case "newFriendJesper":
+            if(stats.strength >= 20) {
+                stats.strength += 5
+                changeScene(5)
+            } else {
+                changeScene(6)
+            }
+
+        case "newFriendViktor":
+            if(stats.charm >= 20) {
+                stats.charm += 5
+                changeScene(7)
+            } else {
+                changeScene(8)
+            }
+
+        case "newFriendKevin":
+            if(stats.money >= 20) {
+                stats.money += 5
+                changeScene(9)
+            } else {
+                changeScene(10)
             }
 
         default:
@@ -103,6 +138,14 @@ button1.addEventListener("click", () => {
 
         case "kill":
             actions("kill")
+            break
+
+        case "Filip":
+            actions("newFriendFilip")
+            break
+
+        default:
+            console.log("I don't have a case for this. Have you checked the name of the button?")
     }
 })
 
@@ -112,9 +155,18 @@ button2.addEventListener("click", () => {
 
         case "Smart boi":
             actions("intelligenceBackground")
+            break
 
         case "Try to make some friends":
             actions("makeFriends")
+            break
+
+        case "Jesper":
+            actions("newFriendJesper")
+            break
+
+        default:
+            console.log("I don't have a case for this. Have you checked the name of the button?")
     }
 
 })
@@ -134,6 +186,9 @@ button3.addEventListener("click", () => {
         case "Viktor":
             actions("newFriendViktor")
             break
+
+        default:
+            console.log("I don't have a case for this. Have you checked the name of the button?")
     }
 })
 
@@ -143,6 +198,14 @@ button4.addEventListener("click", () => {
 
         case "Charming boi":
             actions("charmingBackground")
+            break
+
+        case "Kevin":
+            actions("newFriendKevin")
+            break
+
+        default:
+            console.log("I don't have a case for this. Have you checked the name of the button?")
     }
 })
 
