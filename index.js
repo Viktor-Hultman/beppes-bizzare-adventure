@@ -8,7 +8,7 @@ class sceneBuilder {
     }
 }
 
-//Selection of common html elements
+//Selection of common html elements.
 const sceneTitle = document.querySelector("#scene-title");
 const sceneDesc = document.querySelector("#scene-description");
 const sceneOpt = document.querySelectorAll(".option");
@@ -19,7 +19,7 @@ const sceneOpt = document.querySelectorAll(".option");
 //All scenes are put in an array which is selectet in the actions() function below to choose scene by calling the changeScene() function.
 const scenes =
     [   new sceneBuilder("Start of the school year", "You are seated in your new classroom for the first time with your new classmates, the teacher is going through some important information about your education. What do you do?", ["Listen to the information", "Try to make some friends", "Play with your cellphone", ""]),
-        new sceneBuilder("play with your cellphone", "You pick up your cellphone and start playing angry birds", ["you turn off the volume", "you put the volume to the max", "you start texting your girlfriend", "browsing reddit"]),
+        new sceneBuilder("play with your cellphone", "You pick up your cellphone and start playing angry birds", ["You turn off the volume", "You put the volume to the max!", "You start texting your girlfriend", "Brows reddit instead"]),
         new sceneBuilder("Making Friends","You decide to make some friends. Which one do you want do be friend? Filip seems to be very smart. Jesper seems to be very strong. Viktor seems charismatic. Kevin probably has a rich dad.", ["Filip", "Jesper", "Viktor", "Kevin"]),
         
         new sceneBuilder("Filip accepts you", "Filip has deemed that you're smart enough to be his friend.", ["Continue", "", "", ""]),
@@ -33,10 +33,15 @@ const scenes =
 
         new sceneBuilder("Kevin accepts you", "Kevin has deemed that you're loaded enough to be his friend.", ["Continue", "", "", ""]),
         new sceneBuilder("Kevin does not accept you.", "You are not rich enough for Kevin. He leaves.", ["Continue", "", "", ""]),
+
+        new sceneBuilder("Disturbing the class", "You have decided for some apparent reason that playing a mobile game on full volume would be a smart idea. The teacher looks furious and tells you to stop what you´re doing. What will you do?", ["Turn of your cellphone and appoligize for your behaviour", "Try to lie and say it was an accident", "Ignore the teacher", "Tell the teacher to f*ck off"]),
+        
+        new sceneBuilder("Your journey ends!", "Your actions have caused the end of your adventure, please reload the browser to restart the game. Yes really, you lost dude. That's life, get over it.", ["","","",""]),
     ];
 
 
-//Stats that should be shown on screen
+//Stats that will be shown in the game.
+//This is an object that contains the key values of each stat.
 const stats = {
     money: 10,
     intelligence: 10,
@@ -44,27 +49,29 @@ const stats = {
     charm: 10
 };
 
+//Selects the spans with the class="stat" on the html.
 const statText = document.querySelectorAll('.stat');
 
-
-
-
+//Creation of a function that will uppdate the stats shown in the game.
 function UppdateStats() {
-    let statIndex = 0
 
+    let statIndex = 0
+    //This is a 'for in' loop which can be used for looping through an object, in this case 'stats'.
     for (let stat in stats) {
+        //Each stat in the html will use each stat value of the stats object.
         statText[statIndex].innerText = stats[stat]
         statIndex++
     }
 }
+//Calling the function to get an update when the game starts.
 UppdateStats();
 
 //All the choices, what they do and which scene they lead to.
 function actions(choice) {
-    //Switch statement that checks which choice was made
+    //Switch statement that checks which choice was made.
     switch (choice) {
         case "moneyBackground":
-            //When the "money" choice is made the following is run
+            //When the "money" choice is made the following is run.
             stats.money += 10
             console.log(`You now have ${stats.money} monies!`);
             //The argument selects which scene to continue to. Ex. changeScene(0) selects the first scene in the "scenes" array.
@@ -140,18 +147,30 @@ function actions(choice) {
             }
             break
 
+        case "angryBirdsVolumeMax":
+            stats.charm -= 5
+            changeScene(11)
+            break
+
+        case "loseGame":
+            stats.money = -100
+            stats.intelligence = -100
+            stats.strength = -100
+            stats.charm = -100
+            changeScene(12)
+
         default:
             console.log(`${choice} is not an action!`);
     }
 
 }
 
-//Targets the button with the id="button1" and gives it an event listener
+//Targets the button with the id="button1" and gives it an event listener.
 button1 = document.getElementById("button1")
 button1.addEventListener("click", () => {
-    //Checks the value of button with the id="button1" 
+    //Checks the value of button with the id="button1".
     switch (sceneOpt[0].value) {
-        //Each case represents the value of the button and calls actions() above with the corresponding argument 
+        //Each case represents the value of the button and calls actions() above with the corresponding argument.
         case "Rich boi":
             actions("moneyBackground")
             break
@@ -179,6 +198,10 @@ button2.addEventListener("click", () => {
 
         case "Try to make some friends":
             actions("makeFriends")
+            break
+
+        case "You put the volume to the max!":
+            actions("angryBirdsVolumeMax")
             break
 
         case "Jesper":
@@ -224,6 +247,9 @@ button4.addEventListener("click", () => {
             actions("newFriendKevin")
             break
 
+        case "Tell the teacher to f*ck off":
+            actions("loseGame")
+
         default:
             console.log("I don't have a case for this. Have you checked the name of the button?")
     }
@@ -251,5 +277,6 @@ const changeScene = (sceneName) => {
             button.style.display = "none";
         }
     })
+    //Updating the stats after each scene change.
     UppdateStats();
 };
