@@ -37,12 +37,27 @@ const scenes =
 
 
 //Stats that should be shown on screen
-let stats = {
+const stats = {
     money: 10,
     intelligence: 10,
     strength: 10,
     charm: 10
 };
+
+const statText = document.querySelectorAll('.stat');
+
+
+
+
+function UppdateStats() {
+    let statIndex = 0
+
+    for (let stat in stats) {
+        statText[statIndex].innerText = stats[stat]
+        statIndex++
+    }
+}
+UppdateStats();
 
 //All the choices, what they do and which scene they lead to.
 function actions(choice) {
@@ -76,6 +91,7 @@ function actions(choice) {
 
             changeScene(0)
             break
+
         case "increaseIntelligence":
             stats.intelligence += 1;
             console.log("you are now smarter");
@@ -155,7 +171,11 @@ button2.addEventListener("click", () => {
 
         case "Smart boi":
             actions("intelligenceBackground")
+<<<<<<< HEAD
             break
+=======
+            break;
+>>>>>>> 6560255a90682faacd5fede9bcd3d2e818ef17cf
 
         case "Try to make some friends":
             actions("makeFriends")
@@ -212,7 +232,7 @@ button4.addEventListener("click", () => {
 
 //Function for changing to new scene.
 const changeScene = (sceneName) => {
-
+    
     //Checks which scene array is chosen.
     const scene = scenes[sceneName];
     //Selects which title and description should be displayed.
@@ -232,4 +252,5 @@ const changeScene = (sceneName) => {
             button.style.display = "none";
         }
     })
+    UppdateStats();
 };
