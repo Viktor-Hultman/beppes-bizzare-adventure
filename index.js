@@ -20,7 +20,9 @@ const sceneOpt = document.querySelectorAll(".option");
 const scenes =
     [   new sceneBuilder("Start of the school year", "You are seated in your new classroom for the first time with your new classmates, the teacher is going through some important information about your education. What do you do?", ["Listen to the information", "Try to make some friends", "Play with your cellphone", ""]),
         new sceneBuilder("play with your cellphone", "You pick up your cellphone and start playing angry birds", ["you turn off the volume", "you put the volume to the max", "you start texting your girlfriend", "browsing reddit"]),
-        new sceneBuilder("Making Friends","You decide to make some friends. Which one do you want do be friend? Filip seems to ber very smart. Jepser seems to be very to be very strong. Viktor seems charismatic. Kevin probably has a rich dad.", ["Filip", "Jesper", "Viktor", "Kevin"])
+        new sceneBuilder("Making Friends","You decide to make some friends. Which one do you want do be friend? Filip seems to be very smart. Jesper seems to be very strong. Viktor seems charismatic. Kevin probably has a rich dad.", ["Filip", "Jesper", "Viktor", "Kevin"]),
+        new sceneBuilder("Viktor accepts you", "Viktor has deemed that you're charismatic enough to be his friend.", ["Continue", "", "", ""]),
+        new sceneBuilder("Viktor does not accept you.", "You are not charismatic enough for Viktor. He leaves.", ["Continue", "", "", ""])
     ];
 
 
@@ -68,11 +70,20 @@ function actions(choice) {
             stats.intelligence += 1;
             console.log("you are now smarter");
             changeScene(1);
+            break
 
         case "makeFriends":
             stats.charm += 1;
             console.log("You decide to make some friends");
             changeScene(2)
+            break
+
+        case "newFriendViktor":
+            if(stats.charm > 20) {
+                changeScene(3)
+            } else {
+                changeScene(4)
+            }
 
         default:
             console.log(`${choice} is not an action!`);
@@ -115,9 +126,14 @@ button3.addEventListener("click", () => {
         case "Strong boi":
             actions("strengthBackground");
             break;
+
         case "Play with your cellphone":
             actions("increaseIntelligence");
             break;
+
+        case "Viktor":
+            actions("newFriendViktor")
+            break
     }
 })
 
