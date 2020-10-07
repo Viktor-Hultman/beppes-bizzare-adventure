@@ -11,7 +11,7 @@ class sceneBuilder {
 //Selection of common html elements
 const sceneTitle = document.querySelector("#scene-title");
 const sceneDesc = document.querySelector("#scene-description");
-const sceneOpt = document.querySelectorAll(".option")
+const sceneOpt = document.querySelectorAll(".option");
 
 
 //Creation of each scene, follow the format "new sceneBuilder("Title of scene", "Description of the scene", ["Button 1", "Button2", "Button 3", "Button 4"]).
@@ -19,11 +19,8 @@ const sceneOpt = document.querySelectorAll(".option")
 //All scenes are put in an array which is selectet in the actions() function below to choose scene by calling the changeScene() function.
 const scenes =
     [   new sceneBuilder("Start of the school year", "You are seated in your new classroom for the first time with your new classmates, the teacher is going through some important information about your education. What do you do?", ["Listen to the information", "Try to make som friends", "Play with your cellphone", ""]),
-        new sceneBuilder("bob", "bargain with bob", ["a", "b", "", ""]),
-        new sceneBuilder("homework", "bargain with bob", ["a", "b", "", ""]),
-        new sceneBuilder("toilet", "bargain with bob", ["a", "b", "", ""]),
-        new sceneBuilder("KENNY IS DEAD", "You need to answer for your actions", ["Run", "Hide the body", "Kill self", ""]),
-    ]
+        new sceneBuilder("play with your cellphone", "You pick up your cellphone and start playing angry birds", ["you turn off the volume", "you put the volume to the max", "you start texting your girlfriend", "browsing reddit"])
+    ];
 
 
 //Stats that should be shown on screen
@@ -32,8 +29,7 @@ let stats = {
     intelligence: 10,
     strength: 10,
     charm: 10
-}
-
+};
 
 //All the choices, what they do and which scene they lead to.
 function actions(choice) {
@@ -67,6 +63,10 @@ function actions(choice) {
 
             changeScene(0)
             break
+        case "increaseIntelligence":
+            stats.intelligence += 1;
+            console.log("you are now smarter");
+            changeScene(1);
 
         default:
             console.log(`${choice} is not an action!`);
@@ -104,7 +104,11 @@ button3.addEventListener("click", () => {
     switch (sceneOpt[2].value) {
 
         case "Strong boi":
-            actions("strengthBackground")
+            actions("strengthBackground");
+            break;
+        case "Play with your cellphone":
+            actions("increaseIntelligence");
+            break;
     }
 })
 
@@ -120,6 +124,7 @@ button4.addEventListener("click", () => {
 
 //Function for changing to new scene.
 const changeScene = (sceneName) => {
+
     //Checks which scene array is chosen.
     const scene = scenes[sceneName];
     //Selects which title and description should be displayed.
@@ -131,10 +136,12 @@ const changeScene = (sceneName) => {
     }
     //Gives every button the same value as its innerText.
     sceneOpt.forEach((button) => {
+        button.style.display = "initial";
         button.value = button.innerText;
+        console.log(button)
         //Every button that does not have an innerText is hidden.
         if (button.innerText == "") {
             button.style.display = "none";
         }
     })
-}
+};
