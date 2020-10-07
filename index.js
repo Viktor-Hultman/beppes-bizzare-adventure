@@ -18,8 +18,9 @@ const sceneOpt = document.querySelectorAll(".option");
 //If a scene should only have ex. 2 options: fill in the first two and set empty strings for the others like this ["Button 1", "Button 2", "", ""].
 //All scenes are put in an array which is selectet in the actions() function below to choose scene by calling the changeScene() function.
 const scenes =
-    [   new sceneBuilder("Start of the school year", "You are seated in your new classroom for the first time with your new classmates, the teacher is going through some important information about your education. What do you do?", ["Listen to the information", "Try to make som friends", "Play with your cellphone", ""]),
-        new sceneBuilder("play with your cellphone", "You pick up your cellphone and start playing angry birds", ["you turn off the volume", "you put the volume to the max", "you start texting your girlfriend", "browsing reddit"])
+    [   new sceneBuilder("Start of the school year", "You are seated in your new classroom for the first time with your new classmates, the teacher is going through some important information about your education. What do you do?", ["Listen to the information", "Try to make some friends", "Play with your cellphone", ""]),
+        new sceneBuilder("play with your cellphone", "You pick up your cellphone and start playing angry birds", ["you turn off the volume", "you put the volume to the max", "you start texting your girlfriend", "browsing reddit"]),
+        new sceneBuilder("Making Friends","You decide to make some friends. Which one do you want do be friend? Filip seems to ber very smart. Jepser seems to be very to be very strong. Viktor seems charismatic. Kevin probably has a rich dad.", ["Filip", "Jesper", "Viktor", "Kevin"])
     ];
 
 
@@ -68,6 +69,11 @@ function actions(choice) {
             console.log("you are now smarter");
             changeScene(1);
 
+        case "makeFriends":
+            stats.charm += 1;
+            console.log("You decide to make some friends");
+            changeScene(2)
+
         default:
             console.log(`${choice} is not an action!`);
     }
@@ -95,6 +101,9 @@ button2.addEventListener("click", () => {
 
         case "Smart boi":
             actions("intelligenceBackground")
+
+        case "Try to make some friends":
+            actions("makeFriends")
     }
 
 })
